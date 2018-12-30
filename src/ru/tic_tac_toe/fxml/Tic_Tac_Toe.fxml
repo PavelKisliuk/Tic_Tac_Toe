@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="520.0" visible="false" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.tic_tac_toe.controllers.Tic_Tac_ToeController">
+   <top>
+      <MenuBar fx:id="mainMenuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#loadMenuItemOnAction" text="Load F11">
+                     <accelerator>
+                        <KeyCodeCombination alt="ANY" code="F11" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="saveMenuItem" disable="true" mnemonicParsing="false" onAction="#saveMenuItemOnAction" text="Save F5">
+                     <accelerator>
+                        <KeyCodeCombination alt="ANY" code="F5" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#exitMenuItemOnAction" text="Unsaved exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem fx:id="anotherGameTypeMenuItem" mnemonicParsing="false" onAction="#anotherGameTypeMenuItemOnAction" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#aboutMenuItemOnAction" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </MenuBar>
+   </top>
+   <right>
+      <VBox fx:id="chatBorderPane" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea editable="false" focusTraversable="false" prefHeight="256.0" prefWidth="100.0" />
+            <GridPane prefHeight="145.0" prefWidth="100.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonOnAction" text="Start">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <CheckBox fx:id="goFirstCheckBox" mnemonicParsing="false" text="Go first">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </CheckBox>
+            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGameButtonOnAction" text="New game" visible="false">
+               <font>
+                  <Font name="Times New Roman" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children></VBox>
+   </left>
+   <center>
+      <GridPane fx:id="mainGridPane" alignment="CENTER" disable="true" gridLinesVisible="true" prefHeight="400.0" prefWidth="230.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="90.0" />
+         </padding>
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="95.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="1" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="2" />
+            <ImageView fitHeight="100.0" fitWidth="95.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.rowIndex="1" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fitHeight="100.0" fitWidth="95.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.rowIndex="2" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fitHeight="100.0" fitWidth="96.0" onMouseClicked="#imageViewsOnMouseClicked" onMouseEntered="#imageViewsOnMouseEntered" onMouseExited="#imageViewsOnMouseExited" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Line fx:id="centerLine" endX="300.0" rotate="134.0" startX="-100.0" strokeWidth="2.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Line fx:id="upLine" endX="170.0" startX="-100.0" strokeWidth="2.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Line fx:id="downLine" endX="170.0" startX="-100.0" strokeWidth="2.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Line fx:id="leftLine" endX="170.0" rotate="90.0" startX="-100.0" strokeWidth="2.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Line fx:id="rightLine" endX="170.0" rotate="90.0" startX="-100.0" strokeWidth="2.0" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </center>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="103.0" prefWidth="510.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="resultLabel">
+               <font>
+                  <Font name="Times New Roman Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="connextLabel">
+               <font>
+                  <Font name="Times New Roman" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
