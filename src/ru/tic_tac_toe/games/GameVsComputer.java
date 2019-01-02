@@ -16,6 +16,7 @@ public class GameVsComputer extends Game {
 	//-----------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------methods
 	//-----------------------------------------------------------------------------save & load
+	@Override
 	public AreaConditions loadGame(String path) {
 		try(final BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
 			String savedGame = reader.readLine();
@@ -47,6 +48,7 @@ public class GameVsComputer extends Game {
 		return AreaConditions.EMPTY;
 	}
 
+	@Override
 	public void saveGame(final String path, AreaConditions symbolPlayer) {
 		try(final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))) {
 			writer.write(Arrays.asList(super.main_Area).toString());
@@ -59,88 +61,90 @@ public class GameVsComputer extends Game {
 		}
 	}
 	//-----------------------------------------------------------------------------goes
+	@Override
 	public void player_Go(AreaConditions symbolPlayer, int place)
 	{
 		super.main_Area[place] = symbolPlayer;
 	}
 
-	public int computer_Go(AreaConditions symbolComputer, AreaConditions symbolPlayer)
+	@Override
+	public int opponent_Go(AreaConditions symbolOpponent, AreaConditions symbolPlayer)
 	{
 		SecureRandom randomNumbers = new SecureRandom();
 		int place = 0;
 		if(1 == GameVsComputer.go_Number) {
 			place = 4;
 			if(AreaConditions.EMPTY == super.main_Area[place]){
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else {
 				int[] ar = {0, 2, 6, 8};
 				place = ar[randomNumbers.nextInt(4)];
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 		}
 		else if((2 == GameVsComputer.go_Number) && isTwoAngles(symbolPlayer)) {
 			int[] ar = {1, 3, 5, 7};
 			place = ar[randomNumbers.nextInt(4)];
-			super.main_Area[place] = symbolComputer;
+			super.main_Area[place] = symbolOpponent;
 		}
 		else if((2 == GameVsComputer.go_Number) &&
-				(symbolPlayer == super.main_Area[4]) && isTupic(symbolPlayer, symbolComputer)) {
+				(symbolPlayer == super.main_Area[4]) && isTupic(symbolPlayer, symbolOpponent)) {
 			if(AreaConditions.EMPTY != super.main_Area[0]) {
 				int[] ar = {2, 6};
 				place = ar[randomNumbers.nextInt(2)];
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else {
 				int[] ar = {0, 8};
 				place = ar[randomNumbers.nextInt(2)];
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 		}
-		else if(((2 == GameVsComputer.go_Number) || ((3 == GameVsComputer.go_Number) && (symbolComputer == AreaConditions.DASH))) &&
-				(symbolComputer == super.main_Area[4]) && isCritical(symbolPlayer)) {
+		else if(((2 == GameVsComputer.go_Number) || ((3 == GameVsComputer.go_Number) && (symbolOpponent == AreaConditions.DASH))) &&
+				(symbolOpponent == super.main_Area[4]) && isCritical(symbolPlayer)) {
 			if((symbolPlayer == super.main_Area[2]) && (symbolPlayer == super.main_Area[3]) ||
 					(symbolPlayer == super.main_Area[6]) && (symbolPlayer == super.main_Area[1])) {
 				//place = 0;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[0]) && ((symbolPlayer == super.main_Area[5])) ||
 					(symbolPlayer == super.main_Area[8]) && (symbolPlayer == super.main_Area[1])) {
 				place = 2;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[0]) && (symbolPlayer == super.main_Area[7]) ||
 					(symbolPlayer == super.main_Area[8]) && (symbolPlayer == super.main_Area[3])) {
 				place = 6;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[2]) && (symbolPlayer == super.main_Area[7]) ||
 					(symbolPlayer == super.main_Area[6]) && (symbolPlayer == super.main_Area[5])) {
 				place = 8;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 		}
-		else if((2 == GameVsComputer.go_Number) && (symbolComputer == super.main_Area[4]) && isDiagonal(symbolPlayer)) {
+		else if((2 == GameVsComputer.go_Number) && (symbolOpponent == super.main_Area[4]) && isDiagonal(symbolPlayer)) {
 			if((symbolPlayer == super.main_Area[1]) && (symbolPlayer == super.main_Area[3])) {
 				//place = 0;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[1]) && (symbolPlayer == super.main_Area[5])) {
 				place = 2;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[3]) && (symbolPlayer == super.main_Area[7])) {
 				place = 6;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 			else if((symbolPlayer == super.main_Area[5]) && (symbolPlayer == super.main_Area[7])) {
 				place = 8;
-				super.main_Area[place] = symbolComputer;
+				super.main_Area[place] = symbolOpponent;
 			}
 		}
 		else {
-			place = choice(symbolComputer, symbolPlayer);
-			super.main_Area[place] = symbolComputer;
+			place = choice(symbolOpponent, symbolPlayer);
+			super.main_Area[place] = symbolOpponent;
 		}
 		return place;
 	}
@@ -151,12 +155,12 @@ public class GameVsComputer extends Game {
 				((symbolPlayer == super.main_Area[2]) && (symbolPlayer == super.main_Area[6])));
 	}
 
-	private boolean isTupic(AreaConditions symbolPlayer, AreaConditions symbolComputer)
+	private boolean isTupic(AreaConditions symbolPlayer, AreaConditions symbolOpponent)
 	{
-		return ((symbolPlayer == super.main_Area[0]) && (symbolComputer == super.main_Area[8])) ||
-				((symbolPlayer == super.main_Area[8]) && (symbolComputer == super.main_Area[0])) ||
-				((symbolPlayer == super.main_Area[2]) && (symbolComputer == super.main_Area[6])) ||
-				((symbolPlayer == super.main_Area[6])) && (symbolComputer == super.main_Area[2]);
+		return ((symbolPlayer == super.main_Area[0]) && (symbolOpponent == super.main_Area[8])) ||
+				((symbolPlayer == super.main_Area[8]) && (symbolOpponent == super.main_Area[0])) ||
+				((symbolPlayer == super.main_Area[2]) && (symbolOpponent == super.main_Area[6])) ||
+				((symbolPlayer == super.main_Area[6])) && (symbolOpponent == super.main_Area[2]);
 	}
 
 	private boolean isCritical(AreaConditions symbolPlayer) {
@@ -174,9 +178,9 @@ public class GameVsComputer extends Game {
 
 	}
 	//-----------------------------------------------------------------------------choice
-	private int choice(AreaConditions symbolComputer, AreaConditions symbolPlayer)
+	private int choice(AreaConditions symbolOpponent, AreaConditions symbolPlayer)
 	{
-		int ifWin = ifCanWin(symbolComputer);
+		int ifWin = ifCanWin(symbolOpponent);
 		if(ifWin != -1) {
 			return ifWin;
 		}
@@ -186,10 +190,10 @@ public class GameVsComputer extends Game {
 			return ifLose;
 		}
 		//------------------------------------------------------
-		return primeChoice(symbolComputer);
+		return primeChoice(symbolOpponent);
 	}
 
-	private int ifCanWin(AreaConditions symbolComputer)
+	private int ifCanWin(AreaConditions symbolOpponent)
 	{
 		int counterSymbolComputer = 0;
 		int counterEmpty = 0;
@@ -201,7 +205,7 @@ public class GameVsComputer extends Game {
 					counterEmpty++;
 					squareNumber = super.winningCombinations[i][j];
 				}
-				else if(symbolComputer == super.main_Area[super.winningCombinations[i][j]]) {
+				else if(symbolOpponent == super.main_Area[super.winningCombinations[i][j]]) {
 					counterSymbolComputer++;
 				}
 			}
@@ -245,7 +249,7 @@ public class GameVsComputer extends Game {
 		return squareNumber;
 	}
 
-	private int primeChoice(AreaConditions symbolComputer)
+	private int primeChoice(AreaConditions symbolOpponent)
 	{
 		SecureRandom randomNumbers = new SecureRandom();
 
@@ -260,7 +264,7 @@ public class GameVsComputer extends Game {
 					counterEmpty++;
 					emptySquares.add(super.winningCombinations[i][j]);
 				}
-				else if(symbolComputer == super.main_Area[super.winningCombinations[i][j]]) {
+				else if(symbolOpponent == super.main_Area[super.winningCombinations[i][j]]) {
 					counterSymbolComputer++;
 				}
 			}
@@ -293,7 +297,7 @@ public class GameVsComputer extends Game {
 						counterEmpty++;
 						emptySquares.add(super.winningCombinations[i][j]);
 					}
-					else if(symbolComputer == super.main_Area[super.winningCombinations[i][j]]) {
+					else if(symbolOpponent == super.main_Area[super.winningCombinations[i][j]]) {
 						counterSymbolPlayer++;
 					}
 				}

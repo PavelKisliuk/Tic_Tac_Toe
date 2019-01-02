@@ -3,7 +3,7 @@ package ru.tic_tac_toe.games;
 
 import java.util.Arrays;
 
-public class Game {
+abstract public class Game {
 	//-----------------------------------------------------------------------------fields
 	AreaConditions[] main_Area;
 	final int size = 3; //size of column, row and amount align symbols for winning
@@ -44,4 +44,8 @@ public class Game {
 		return this.main_Area[numberOfElement];
 	}
 
+	abstract public AreaConditions loadGame(String path);
+	abstract public void saveGame(final String path, AreaConditions symbolPlayer);
+	abstract public void player_Go(AreaConditions symbolPlayer, int place);
+	abstract public int opponent_Go(AreaConditions symbolOpponent, AreaConditions symbolPlayer);
 }

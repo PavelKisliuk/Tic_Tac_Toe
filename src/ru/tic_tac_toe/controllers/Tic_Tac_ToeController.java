@@ -22,6 +22,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.tic_tac_toe.games.AreaConditions;
+import ru.tic_tac_toe.games.Game;
 import ru.tic_tac_toe.games.GameVsComputer;
 
 import java.awt.*;
@@ -41,7 +42,7 @@ public class Tic_Tac_ToeController {
 	private final Image GREY = new Image("Images" + File.separator + "Grey.jpg");
 	private Image iComp;
 	private Image iPerson;
-	private GameVsComputer game;
+	private Game game;
 	private AreaConditions personSymbol;
 	private AreaConditions computerSymbol;
 	private LoadGamePanelController LGPController;
@@ -324,7 +325,7 @@ public class Tic_Tac_ToeController {
 				this.iPerson = this.ZERO;
 				this.personSymbol = AreaConditions.ZERO;
 				GameVsComputer.go_Number++;
-				int place = game.computer_Go(this.computerSymbol, this.personSymbol);
+				int place = game.opponent_Go(this.computerSymbol, this.personSymbol);
 				ImageView image = (ImageView)getNodeFromGridPane(this.mainGridPane, findRow(place), findColumn(place));
 				image.setImage(this.iComp);
 				image.setDisable(true);
@@ -403,7 +404,7 @@ public class Tic_Tac_ToeController {
 
 		if(GameVsComputer.go_Number < 4) {
 			GameVsComputer.go_Number++;
-			place = game.computer_Go(this.computerSymbol, this.personSymbol);
+			place = game.opponent_Go(this.computerSymbol, this.personSymbol);
 			image = (ImageView) getNodeFromGridPane(this.mainGridPane, findRow(place), findColumn(place));
 			image.setPreserveRatio(true);
 			image.setImage(this.iComp);
@@ -420,7 +421,7 @@ public class Tic_Tac_ToeController {
 		else {
 			if(this.iComp == this.DASH) {
 				GameVsComputer.go_Number++;
-				place = game.computer_Go(this.computerSymbol, this.personSymbol);
+				place = game.opponent_Go(this.computerSymbol, this.personSymbol);
 				image = (ImageView) getNodeFromGridPane(this.mainGridPane, findRow(place), findColumn(place));
 				image.setPreserveRatio(true);
 				image.setImage(this.iComp);
